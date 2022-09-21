@@ -24,7 +24,7 @@ const sampleTravelers = [
   const sampleTrips =  [
     {
       "id": 1,
-      "userID": 44,
+      "userID": 1,
       "destinationID": 49,
       "travelers": 1,
       "date": "2022/09/16",
@@ -34,7 +34,7 @@ const sampleTravelers = [
     },
     {
       "id": 2,
-      "userID": 35,
+      "userID": 1,
       "destinationID": 25,
       "travelers": 5,
       "date": "2022/10/04",
@@ -43,7 +43,7 @@ const sampleTravelers = [
       "suggestedActivities": []
     }, {
       "id": 3,
-      "userID": 3,
+      "userID": 1,
       "destinationID": 22,
       "travelers": 4,
       "date": "2022/05/22",
@@ -52,7 +52,7 @@ const sampleTravelers = [
       "suggestedActivities": []
     }, {
       "id": 4,
-      "userID": 43,
+      "userID": 2,
       "destinationID": 14,
       "travelers": 2,
       "date": "2022/02/25",
@@ -61,11 +61,38 @@ const sampleTravelers = [
       "suggestedActivities": []
     }, {
       "id": 5,
-      "userID": 42,
+      "userID": 2,
       "destinationID": 29,
       "travelers": 3,
       "date": "2022/04/30",
       "duration": 18,
+      "status": "approved",
+      "suggestedActivities": []
+    },{
+      "id": 6,
+      "userID": 3,
+      "destinationID": 35,
+      "travelers": 3,
+      "date": "2022/06/29",
+      "duration": 9,
+      "status": "approved",
+      "suggestedActivities": []
+    }, {
+      "id": 7,
+      "userID": 4,
+      "destinationID": 17,
+      "travelers": 5,
+      "date": "2022/5/28",
+      "duration": 20,
+      "status": "approved",
+      "suggestedActivities": []
+    }, {
+      "id": 8,
+      "userID": 5,
+      "destinationID": 39,
+      "travelers": 6,
+      "date": "2022/02/07",
+      "duration": 4,
       "status": "approved",
       "suggestedActivities": []
     }]
@@ -111,3 +138,4 @@ const sampleTravelers = [
         "alt": "city with clear skys and a road in the day time"
       }]
 
+      export {sampleTravelers, sampleTrips, sampleDestinations}
