@@ -9,6 +9,12 @@ class Traveler {
     let firstName = this.name.split(" ");
     return firstName[0];
   }
+
+  getTravelerById() {
+    let singleTraveler = this.id;
+      return singleTraveler;
+  }
+
 }
  
 

@@ -73,7 +73,7 @@ const sampleTravelers = [
       "userID": 3,
       "destinationID": 35,
       "travelers": 3,
-      "date": "2022/06/29",
+      "date": "2022/09/23",
       "duration": 9,
       "status": "approved",
       "suggestedActivities": []

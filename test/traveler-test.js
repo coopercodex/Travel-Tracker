@@ -34,4 +34,9 @@ it('should have the travelers type', () =>{
   expect(traveler1.travelerType).to.equal('relaxer')
 })
 
+it('should get travelers by id', () => {
+  expect(traveler1.getTravelerById(1)).to.equal(1)
+})
+
+
 })
