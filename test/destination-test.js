@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import Destination from "../src/destination";
-import { sampleDestinations } from "../src/sample-data";
+import { destinationsData } from "../src/sample-data";
 
 describe('Destination', () => {
   let destination1
 
 
   beforeEach(() => {
-    destination1 = new Destination(sampleDestinations);
+    destination1 = new Destination(destinationsData);
 
   })
 

@@ -19,11 +19,10 @@ header {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 20vh;
 }
 
 h1 {
-  font-size: 45px;
+  font-size: 35px;
 }
 .widgets-container {
   align-items: center;

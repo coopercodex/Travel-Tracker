@@ -46,7 +46,7 @@ const sampleTravelers = [
       "userID": 1,
       "destinationID": 22,
       "travelers": 4,
-      "date": "2022/05/22",
+      "date": "2021/05/22",
       "duration": 17,
       "status": "approved",
       "suggestedActivities": []
@@ -73,7 +73,7 @@ const sampleTravelers = [
       "userID": 3,
       "destinationID": 35,
       "travelers": 3,
-      "date": "2022/09/23",
+      "date": "2022/09/24",
       "duration": 9,
       "status": "approved",
       "suggestedActivities": []
@@ -95,9 +95,18 @@ const sampleTravelers = [
       "duration": 4,
       "status": "approved",
       "suggestedActivities": []
+    }, {
+      "id": 171,
+      "userID": 2,
+      "destinationID": 43,
+      "travelers": 1,
+      "date": "2020/12/27",
+      "duration": 18,
+      "status": "pending",
+      "suggestedActivities": []
     }]
 
-    const sampleDestinations = [
+    const destinationsData = [
       {
         "id": 1,
         "destination": "Lima, Peru",
@@ -114,7 +123,7 @@ const sampleTravelers = [
         "alt": "city with boats on the water during the day time"
       },
       {
-        "id": 3,
+        "id": 14,
         "destination": "Sydney, Austrailia",
         "estimatedLodgingCostPerDay": 130,
         "estimatedFlightCostPerPerson": 950,
@@ -136,6 +145,23 @@ const sampleTravelers = [
         "estimatedFlightCostPerPerson": 650,
         "image": "https://images.unsplash.com/photo-1543785734-4b6e564642f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
         "alt": "city with clear skys and a road in the day time"
-      }]
+      },
+      {
+        "id": 49,
+        "destination": "Castries, St Lucia",
+        "estimatedLodgingCostPerDay": 650,
+        "estimatedFlightCostPerPerson": 90,
+        "image": "https://images.unsplash.com/photo-1524478075552-c2763ea171b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1502&q=80",
+        "alt": "aerial photography of rocky mountain under cloudy sky"
+      }, 
+      {
+        "id": 25,
+        "destination": "New York, New York",
+        "estimatedLodgingCostPerDay": 175,
+        "estimatedFlightCostPerPerson": 200,
+        "image": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+        "alt": "people crossing the street during the day surrounded by tall buildings and advertisements"
+      }
+    ]
 
-      export {sampleTravelers, sampleTrips, sampleDestinations}
+      export {sampleTravelers, sampleTrips, destinationsData}
