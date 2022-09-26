@@ -9,15 +9,41 @@
 <body>
   <header class="welcome-traveler">
     <h1>Jumper</h1>
-    <h2 class="greeting">Wecolme Traveler!</h1>
+    <h2 class="greeting" id='firstName'>Welcome</h2>
+    <h3 class="TripCost">Total spent on trips this year<span id='tripCost'></span></h3>
   </header>
   <section class="widgets-container">
     <section class="traveler-container">
       <h3 class="travel-activity">Your Travel Information</h3>
-      <h4 class="past-trips">All Your Trips:</h4>
-      <!-- <h4 class="present-trips">Present Trips:</h4>
-      <h4 class="upcoming-trips">Upcoming Trips:</h4> -->
+      <h4 class="past-trips">All Your Trips:<br></h4>
+      <h4 class = "id="pastTrips>Past trips:</h4>
+      <h4 class="present-trips">Present Trips:</h4>
+      <h4 class="upcoming-trips">Upcoming Trips:</h4>
     </section>
+  </section>
+  <section class="booking-view" id="bookingView">
+    <section class="trip-calendar-section" id="tripCalendarSection">
+      <label for="trip-calendar"> Trip start date: </label>
+      <input aria-label="Enter a trip start date" class="start-date-input" id="startDateInput" min="2022-09-27" max="2024-01-01" type="date" required>
+      <p><span class="post-error-message" id="postErrorMessage"></span></p>
+    </section>
+    <section class="trip-details-section" id="tripDetailsSection">
+      <label class="number-travelers" aria-label="enter traveler amount for trip" for="numberTravelers">Number of Travelers:</label>
+      <input type="number" id="numberTravelers" name="quantity" min="1" max="20">
+      <label class="trip-duration" aria-label="enter trip length" for="tripLength">Trip Duration:</label>
+      <input type="number" id="tripLength" name="quantity" min="1" max="20">
+    </section>
+    <section class="select-city" id="selectCity">
+      <label for="destination-selction">Select Trip Destination:</label>
+      <select id="select1" name="destination-selection" class="destination-entry-selection" required>
+      </select>
+    </section>
+    </div class="trip-form-btns" id="tripFormBtns">
+      <button aria-label="check for trip rates button" class="check-rate-btn" id="checkRateButton"> Check Trip Rate </button>
+      <button aria-label="reset trip selections" class="reset-trip-info-btn" id="resetTripInfoButton">Reset Trip Info</button>
+    </div>
+    <p><span class="post-error-message" id="postErrorMessage"></span></p>
+  </section>
   <!-- <img src="./images/turing-logo.png" alt="turing logo"> -->
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>

@@ -21,7 +21,7 @@ const sampleTravelers = [
     "travelerType": "thrill-seeker",
   }]
 
-  const sampleTrips =  [
+  const tripsData =  [
     {
       "id": 1,
       "userID": 1,
@@ -48,7 +48,7 @@ const sampleTravelers = [
       "travelers": 4,
       "date": "2021/05/22",
       "duration": 17,
-      "status": "approved",
+      "status": "pending",
       "suggestedActivities": []
     }, {
       "id": 4,
@@ -73,7 +73,7 @@ const sampleTravelers = [
       "userID": 3,
       "destinationID": 35,
       "travelers": 3,
-      "date": "2022/09/24",
+      "date": "2022/09/25",
       "duration": 9,
       "status": "approved",
       "suggestedActivities": []
@@ -164,4 +164,4 @@ const sampleTravelers = [
       }
     ]
 
-      export {sampleTravelers, sampleTrips, destinationsData}
+      export {sampleTravelers, tripsData, destinationsData}

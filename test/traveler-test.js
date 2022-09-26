@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import Traveler from "../src/traveler";
-import { sampleTravelers } from "../src/sample-data";
+import { sampleTravelers, tripsData, destinationsData } from "../src/sample-data";
 
 describe('Traveler', () => {
   let traveler1
@@ -18,25 +18,17 @@ it('should be an instance of traveler', () => {
   expect(traveler1).to.be.an.instanceOf(Traveler);
 })
 
-it('should have a travelers id', () => {
-  expect(traveler1.id).to.equal(1)
-})
-
-it('should have a travelers name', () => {
-  expect(traveler1.name).to.equal("Ham Leadbeater")
-})
-
 it('should have a travelers first name', () => {
-  expect(traveler1.getTravelerFirstName()).to.equal("Ham")
+  expect(traveler1.getTravelerFirstName(1)).to.equal("Ham")
 })
 
-it('should have the travelers type', () =>{
+it('should have the travelers type', () => {
   expect(traveler1.travelerType).to.equal('relaxer')
 })
 
-it('should get travelers by id', () => {
-  expect(traveler1.getTravelerById(1)).to.equal(1)
-})
 
+it.skip('should caculate cost of trips of most recent year', () => {
+  expect(traveler1.getCostOfTripsOfYear(1, destinationsData)).to.equal()
+})
 
 })
