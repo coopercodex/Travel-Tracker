@@ -181,5 +181,8 @@ describe('Trip', () => {
     ]
     )
   })
+  // it('should return a name for choosen trip', () => {
+  //   expect(trip1.getTripName(1,destinationsData)).to.deep.equal([ 'Lima, Peru', 'Stockholm, Sweden' ]);
+  // })
 
 })

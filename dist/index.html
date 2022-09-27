@@ -7,19 +7,28 @@
   <title>Jumper</title>
 </head>
 <body>
+  <section class="login-page" id="loginPage">
+    <form accept-charset="">
+      <div class="login-container">
+        <h2 class="login-welcome">Welcome to Jumper</h2>
+        <label class="username-text" aria-label="enter username" for="username"><b>Username</b></label>
+        <input class="username" id="username" type="text" placeholder="Username goes here" name="username" required>
+        <label class="password-text" aria-label="enter password" for="psw"><b>Password</b></label>
+        <input class="password" id="password" type="password" placeholder="Password goes here" name="password" required>
+        <button class="login-btn" id="loginBtn">Login</button>
+        <p id="loginError"></p>
+      </div>
+    </form>
+  </section>
+<div class="entire-page hidden">
   <header class="welcome-traveler">
     <h1>Jumper</h1>
     <h2 class="greeting" id='firstName'>Welcome</h2>
     <h3 class="TripCost">Total spent on trips this year<span id='tripCost'></span></h3>
   </header>
-  <section class="widgets-container">
-    <section class="traveler-container">
-      <h3 class="travel-activity">Your Travel Information</h3>
-      <h4 class="past-trips">All Your Trips:<br></h4>
-      <h4 class = "id="pastTrips>Past trips:</h4>
-      <h4 class="present-trips">Present Trips:</h4>
-      <h4 class="upcoming-trips">Upcoming Trips:</h4>
-    </section>
+<main class="main-section" id="mainSection">
+  <section class="possible-trip-container">
+    <p class="possible-trip" id="possibleTrip"></p>
   </section>
   <section class="booking-view" id="bookingView">
     <section class="trip-calendar-section" id="tripCalendarSection">
@@ -28,22 +37,33 @@
       <p><span class="post-error-message" id="postErrorMessage"></span></p>
     </section>
     <section class="trip-details-section" id="tripDetailsSection">
-      <label class="number-travelers" aria-label="enter traveler amount for trip" for="numberTravelers">Number of Travelers:</label>
-      <input type="number" id="numberTravelers" name="quantity" min="1" max="20">
+      <label class="number-of-travelers" aria-label="enter traveler amount for trip" for="numberOfTravelers">Number of Travelers:</label>
+      <input type="number" id="numberOfTravelers" name="quantity" min="1" max="20">
       <label class="trip-duration" aria-label="enter trip length" for="tripLength">Trip Duration:</label>
       <input type="number" id="tripLength" name="quantity" min="1" max="20">
     </section>
     <section class="select-city" id="selectCity">
-      <label for="destination-selction">Select Trip Destination:</label>
+      <label for="destination-selection">Select Trip Destination:</label>
       <select id="select1" name="destination-selection" class="destination-entry-selection" required>
       </select>
     </section>
-    </div class="trip-form-btns" id="tripFormBtns">
+    <div class="trip-form-btns" id="tripFormBtns">
       <button aria-label="check for trip rates button" class="check-rate-btn" id="checkRateButton"> Check Trip Rate </button>
       <button aria-label="reset trip selections" class="reset-trip-info-btn" id="resetTripInfoButton">Reset Trip Info</button>
     </div>
     <p><span class="post-error-message" id="postErrorMessage"></span></p>
   </section>
+</main>
+  <section class="widgets-container hidden">
+    <section class="traveler-container">
+      <h3 class="travel-activity">Your Travel Information</h3>
+      <h4 class="all-trips">All Your Trips:<br></h4>
+      <h4 class = "past-trips" id="pastTrips">Past trips:</h4>
+      <h4 class="pending-trips" id="pendingTrips">Pending Trips:</h4>
+      <h4 class="future-trips" id="futureTrips">Upcoming Trips:</h4>
+    </section>
+  </section>
+</div>
   <!-- <img src="./images/turing-logo.png" alt="turing logo"> -->
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>

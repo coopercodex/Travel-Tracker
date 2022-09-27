@@ -36,3 +36,7 @@ h1 {
 .trip-picture {
 height: 15rem;
 }
+
+.hidden {
+display: none;
+}
