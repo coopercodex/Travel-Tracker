@@ -18,7 +18,8 @@ let passWord = document.getElementById('password');
 let loginError = document.getElementById('loginError');
 let entirePage = document.querySelector('.entire-page');
 let widgetsContainer = document.querySelector('.widgets-container')
-let loginSection = document.querySelector('.login-page')
+let loginSection = document.querySelector('.login-page');
+let bookingButton = document.querySelector('.book-button');
 
 
 
@@ -32,13 +33,14 @@ loginButton.addEventListener('click', userLogin);
 
 
 
+
 // Imports
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/styles.css';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png';
 import "./css/styles.css";
-import { fetchAllData, fetchSingleTravelerData } from './apiCalls';
+import { fetchAllData, fetchSingleTravelerData, postTripApplication } from './apiCalls';
 import Destination from "../src/destination";
 import Traveler from '../src/traveler';
 import Trip from "../src/trip";
@@ -52,6 +54,7 @@ let destinationData;
 let destination;
 let tripData;
 let trip;
+let tripInfo;
 let tripsForTraveler;
 let travelerTrip;
 let travelerId;
@@ -65,8 +68,11 @@ function initiateData() {
     fetchAllData('trips'),
   ]).then((data) => {
     travelerData = data[0].travelers;
+    console.log('TDATA', travelerData)
     destinationData = data[1].destinations;
+    console.log('DDDATA', travelerData)
     tripData = data[2].trips;
+    console.log(tripData)
     // traveler = new Traveler(travelerData);
     destination = new Destination(destinationData);
     trip = new Trip(tripData);
@@ -103,7 +109,9 @@ function userLogin(event) {
 
 function initializeUser() {
   fetchSingleTravelerData(travelerId).then((data) => {
+    console.log('dataa', data)
     traveler = new Traveler(data)
+    console.log('theTraveler', traveler)
     initiateData()
     toggleMainPage()
   })
@@ -115,6 +123,40 @@ function checkInputs() {
     return postError.innerHTML = 'Please choose a date'
   }
 }
+
+const getDestinationId = (location) => {
+  const destinationId = destinationData.find(place => place.destination === location)
+  return destinationId.id
+}
+
+
+const sendTripApplication = () => {
+  tripInfo = {
+   id: Date.now(),
+   userID: traveler.id,
+   destinationID: getDestinationId(selectCity.value),
+   travelers: parseInt(travelersGroupSize.value),
+   date: startDate.value.split("-").join("/"),
+   duration: parseInt(tripLength.value),
+   status: 'pending',
+   suggestedActivities: []
+ };
+ postTripApplication(tripInfo)
+ console.log('TRIP', tripInfo)
+ resetInputs()
+ console.log('TRIPAfterRest', tripInfo)
+ renderTravelersTrips(traveler, trip)
+}
+//update traveler trips to call traveler method ^
+
+const resetInputs = () => {
+  startDate.value = ''
+  tripLength.value = ''
+  travelersGroupSize.value = ''
+  selectCity.value = ''
+  presentTrips.innerHTML += ''
+}
+
 
 function newTripCost(event) {
   let targetDestination = selectCity.value;
@@ -130,6 +172,8 @@ function newTripCost(event) {
     <p>Estimated lodging cost: $${lodgingCost}</p>
     Current total $${subTotal}`
 }
+
+
 
 function destinationInputs() {
   let destinationChoices = destinationData.map((choice) => {
@@ -150,9 +194,10 @@ function renderTravelInfo(traveler, trip) {
 }
 
 function renderTravelersTrips(traveler, trip) {
+  console.log(traveler, trip)
   let logpastTrips = trip.getPastTrips(traveler.id, currentDate);
+  pastTrips.innerHTML = '';
   if (logpastTrips.length > 0) {
-    pastTrips.innerHTML = '';
     logpastTrips.forEach((trip) => {
       pastTrips.innerHTML += `<p> Past Trips<br>Trip Date: ${trip.date}<br>
    Travelers: ${trip.travelers} <br>
@@ -179,7 +224,8 @@ function renderTravelersTrips(traveler, trip) {
 
   let logFutureTrips = trip.getFutureTrips(traveler.id, currentDate);
   futureTrips.innerHTML = '';
-
+  console.log(futureTrips)
+  console.log('Future Trips', logFutureTrips)
   if (logFutureTrips.length > 0) {
     logFutureTrips.forEach((trip) => {
       futureTrips.innerHTML += `<p>Upcoming Trips<br>Trip Date: ${trip.date}<br>
@@ -193,18 +239,7 @@ function renderTravelersTrips(traveler, trip) {
 
 }
 
-
-
-
-
-function clearPage() {
-  postError.innerHTML = '';
-  selectCity.value = '';
-  startDate.value = '';
-  travelersGroupSize.value = '';
-  tripLength.value = '';
-}
-
+bookingButton.addEventListener('click', sendTripApplication)
 
 
 
