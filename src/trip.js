@@ -86,20 +86,6 @@ class Trip {
     return total;
    }
   
-//    getTripName(id, destinations) {
-//     let allTrips = this.getTravelersTripsById(id)
-//     let allDestinations = allTrips.reduce((acc, trip) => {
-//       destinations.forEach((destination) => {
-//         if (destination.id === trip.id) {
-//           acc.push(destination.destination)
-//         }
-//       })
-//       return acc;
-//     }, [])
-//     console.log(allDestinations)
-//     return allDestinations;
-//   } 
-// }
 }
         
         export default Trip;

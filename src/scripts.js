@@ -70,7 +70,7 @@ function initiateData() {
     travelerData = data[0].travelers;
     console.log('TDATA', travelerData)
     destinationData = data[1].destinations;
-    console.log('DDDATA', travelerData)
+    console.log('DDDATA', destinationData)
     tripData = data[2].trips;
     console.log(tripData)
     // traveler = new Traveler(travelerData);
