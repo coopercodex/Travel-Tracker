@@ -26,7 +26,7 @@
 
 
 ## Possible Future Extensions
-  Future extensions would include logging a saved trip and working on the UI/UX design of the overall project.  I would also like to show pictures of the users trips that have already been taken as well as future ones.
+  Future extensions would include working on the UI/UX design of the overall project and i would also like to show pictures of the users trips that have already been taken as well as future ones.
 
 
 ## Page Demo
@@ -36,7 +36,11 @@
 
 
 
-https://user-images.githubusercontent.com/105816411/192627482-f3a5a86e-989d-4ea0-91f2-bfdd9346456e.mp4
+https://user-images.githubusercontent.com/105816411/192852511-3b993a37-59c2-4759-bae5-6621d33174b3.mp4
+
+
+
+
 
 
 
