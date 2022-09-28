@@ -181,8 +181,8 @@ describe('Trip', () => {
     ]
     )
   })
-  // it('should return a name for choosen trip', () => {
-  //   expect(trip1.getTripName(1,destinationsData)).to.deep.equal([ 'Lima, Peru', 'Stockholm, Sweden' ]);
+  // it('should return a picture for choosen trip', () => {
+  //   expect(trip1.getTripsPicture(destinationsData)).to.deep.equal( 'https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80');
   // })
 
 })

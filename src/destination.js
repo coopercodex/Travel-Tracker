@@ -1,13 +1,14 @@
 class Destination {
   constructor(destinationInfo) {
   this.destination = destinationInfo;
+  // console.log(this.destination)
   }
 
-  getDestinationId(id) {
+  getDestinationId(location) {
     let currentDestination = this.destination.find((place) => {
-      return (place.id === id)
+      return (place.destination === location)
     })
-    return currentDestination
+    return currentDestination;
   }
 }
 

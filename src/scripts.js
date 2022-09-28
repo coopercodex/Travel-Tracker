@@ -21,18 +21,10 @@ let widgetsContainer = document.querySelector('.widgets-container')
 let loginSection = document.querySelector('.login-page');
 let bookingButton = document.querySelector('.book-button');
 
-
-
-
 // EventListners
 // window.addEventListener('load', initiateData);
 mainSection.addEventListener('click', submitButtons);
 loginButton.addEventListener('click', userLogin);
-
-
-
-
-
 
 // Imports
 // An example of how you tell webpack to use a CSS (SCSS) file
@@ -67,19 +59,22 @@ function initiateData() {
     fetchAllData('destinations'),
     fetchAllData('trips'),
   ]).then((data) => {
-    travelerData = data[0].travelers;
-    console.log('TDATA', travelerData)
-    destinationData = data[1].destinations;
-    console.log('DDDATA', destinationData)
-    tripData = data[2].trips;
-    console.log(tripData)
+    console.log('D0', data[0], 'D1', data[1], 'D2', data[2])
+    travelerData = data[0];
+    // console.log('TDATA', travelerData)
+    destinationData = data[1];
+    // console.log('DDDATA', destinationData)
+    tripData = data[2];
+    // console.log(tripData)
     // traveler = new Traveler(travelerData);
     destination = new Destination(destinationData);
     trip = new Trip(tripData);
     currentDate = new Date().toJSON().slice(0, 10).split('-').join('/');
-    renderTravelInfo(traveler, trip)
-    renderTravelersTrips(traveler, trip)
-  })
+    renderTravelInfo(traveler, trip);
+    renderTravelersTrips(traveler, trip);
+  }).catch(error => {
+    console.log(`Error: ${error}`)
+  });
 }
 
 function submitButtons(event) {
@@ -87,7 +82,6 @@ function submitButtons(event) {
     case "check-rate-btn":
       checkInputs(event);
       newTripCost();
-
   }
 }
 const toggleMainPage = () => {
@@ -124,28 +118,28 @@ function checkInputs() {
   }
 }
 
-const getDestinationId = (location) => {
-  const destinationId = destinationData.find(place => place.destination === location)
-  return destinationId.id
-}
-
+// const getDestinationId = (location) => {
+//   const destinationId = destinationData.destinations.find(place => place.destination === location)
+//   console.log("ID", destinationId)
+//   return destinationId.id
+// }
 
 const sendTripApplication = () => {
+  let destinationId = destination.getDestinationId(selectCity.value)
   tripInfo = {
-   id: Date.now(),
-   userID: traveler.id,
-   destinationID: getDestinationId(selectCity.value),
-   travelers: parseInt(travelersGroupSize.value),
-   date: startDate.value.split("-").join("/"),
-   duration: parseInt(tripLength.value),
-   status: 'pending',
-   suggestedActivities: []
- };
- postTripApplication(tripInfo)
- console.log('TRIP', tripInfo)
- resetInputs()
- console.log('TRIPAfterRest', tripInfo)
- renderTravelersTrips(traveler, trip)
+    id: Date.now(),
+    userID: traveler.id,
+    destinationID: destinationId.id,
+    travelers: parseInt(travelersGroupSize.value),
+    date: startDate.value.split("-").join("/"),
+    duration: parseInt(tripLength.value),
+    status: 'pending',
+    suggestedActivities: []
+  };
+  postTripApplication(tripInfo);
+  resetInputs();
+  // initiateData();
+  renderTravelersTrips(traveler, trip);
 }
 //update traveler trips to call traveler method ^
 
@@ -154,16 +148,16 @@ const resetInputs = () => {
   tripLength.value = ''
   travelersGroupSize.value = ''
   selectCity.value = ''
-  presentTrips.innerHTML += ''
+  // presentTrips.innerHTML = ''
 }
 
 
-function newTripCost(event) {
-  let targetDestination = selectCity.value;
+function newTripCost() {
+  // let targetDestination = selectCity.value;
   let numberOfPeople = travelersGroupSize.value;
   let stayLength = tripLength.value;
-  console.log(destinationData)
-  let pendingDestinaiton = destinationData.find((location) => location.destination === targetDestination);
+  // console.log(destinationData)
+  let pendingDestinaiton = destination.getDestinationId(selectCity.value);
   let airCost = numberOfPeople * pendingDestinaiton.estimatedFlightCostPerPerson;
   let lodgingCost = stayLength * pendingDestinaiton.estimatedLodgingCostPerDay;
   let subTotal = (airCost + lodgingCost) * 1.1;
@@ -171,6 +165,7 @@ function newTripCost(event) {
     <p>Estimated flights cost: $${airCost}</p>
     <p>Estimated lodging cost: $${lodgingCost}</p>
     Current total $${subTotal}`
+  //add tofixed(2)
 }
 
 
@@ -189,59 +184,56 @@ function destinationInputs() {
 
 function renderTravelInfo(traveler, trip) {
   firstName.innerText = ` Welcome Back ${traveler.getTravelerFirstName()}`;
-  tripCostForYear.innerText = ` $${trip.getTotalCost(traveler.id, currentDate, destination.destination)}`;
+  tripCostForYear.innerText = `$${trip.getTotalCost(traveler.id, currentDate, destination.destination)}`;
   destinationInputs()
 }
 
 function renderTravelersTrips(traveler, trip) {
-  console.log(traveler, trip)
-  let logpastTrips = trip.getPastTrips(traveler.id, currentDate);
-  pastTrips.innerHTML = '';
-  if (logpastTrips.length > 0) {
-    logpastTrips.forEach((trip) => {
-      pastTrips.innerHTML += `<p> Past Trips<br>Trip Date: ${trip.date}<br>
+  fetch('http://localhost:3001/api/v1/trips')
+    .then(data => {
+      let logpastTrips = trip.getPastTrips(traveler.id, currentDate);
+      pastTrips.innerHTML = '';
+      if (logpastTrips.length > 0) {
+        logpastTrips.forEach((trip) => {
+          pastTrips.innerHTML += `<p> Past Trips<br>Trip Date: ${trip.date}<br>
    Travelers: ${trip.travelers} <br>
    Duration: ${trip.duration} <br>
    Status: ${trip.status} <br></p>`
-    })
-  } else {
-    pastTrips.innerHTML += `<h4> You have no past trips.`
-  }
+        })
+      } else {
+        pastTrips.innerHTML += `<h4> You have no past trips.`
+      }
 
 
-  let logPresentTrips = trip.getPendingTrips(traveler.id, currentDate);
-  presentTrips.innerHTML = '';
-  if (logPresentTrips.length > 0) {
-    logPresentTrips.forEach((trip) => {
-      presentTrips.innerHTML += `<p>Pending Trips<br>Trip Date: ${trip.date}<br>
+      let logPresentTrips = trip.getPendingTrips(traveler.id, currentDate);
+      presentTrips.innerHTML = '';
+      if (logPresentTrips.length > 0) {
+        logPresentTrips.forEach((trip) => {
+          presentTrips.innerHTML += `<p>Pending Trips<br>Trip Date: ${trip.date}<br>
    Travelers: ${trip.travelers} <br>
    Duration: ${trip.duration} <br>
    Status: ${trip.status} <br></p>`
-    })
-  } else {
-    presentTrips.innerHTML += `<h4> You have no trips at this time.`;
-  }
+        })
+      } else {
+        presentTrips.innerHTML += `<h4> You have no trips at this time.`;
+      }
 
-  let logFutureTrips = trip.getFutureTrips(traveler.id, currentDate);
-  futureTrips.innerHTML = '';
-  console.log(futureTrips)
-  console.log('Future Trips', logFutureTrips)
-  if (logFutureTrips.length > 0) {
-    logFutureTrips.forEach((trip) => {
-      futureTrips.innerHTML += `<p>Upcoming Trips<br>Trip Date: ${trip.date}<br>
+      let logFutureTrips = trip.getFutureTrips(traveler.id, currentDate);
+      futureTrips.innerHTML = '';
+      // console.log(logFutureTrips.length)
+      // console.log('Future Trips', logFutureTrips)
+      if (logFutureTrips.length > 0) {
+        logFutureTrips.forEach((trip) => {
+          futureTrips.innerHTML += `<p>Upcoming Trips<br>Trip Date: ${trip.date}<br>
    Travelers: ${trip.travelers} <br>
    Duration: ${trip.duration} <br>
    Status: ${trip.status} <br></p>`
+        })
+      } else {
+        futureTrips.innerHTML += `<h4> You have no upcoming trips.`;
+      }
     })
-  } else {
-    futureTrips.innerHTML += `<h4> You have no upcoming trips.`;
-  }
-
 }
 
 bookingButton.addEventListener('click', sendTripApplication)
-
-
-
-
 

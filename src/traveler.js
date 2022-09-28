@@ -17,7 +17,9 @@ class Traveler {
     let firstName = this.name.split(" ");
     return `${firstName[0]}`;
   }
-  
+
+
+
   // methods that update trips, 3 args- past, upcoming, pending from trip class
 }
 

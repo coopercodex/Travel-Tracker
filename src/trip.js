@@ -16,15 +16,29 @@ class Trip {
   }
 
   getDestinations(id, destinations) {
-    let allTrips = this.getTravelersTripsById(id)
-    let allDestinations = allTrips.reduce((acc, trip) => {
-      destinations.forEach((destination) => {
-        if (destination.id === trip.id) {
-          acc.push(destination)
+    let allTrips = this.getTravelersTripsById(id);
+    // console.log('All Trips: ', allTrips);
+    // console.log('All Destinations: ', destinations);
+    // let allDestinations = allTrips.reduce((acc, trip) => {
+    //   console.log('Trip: ', trip);
+    //   console.log('acc: ', acc);
+    //   destinations.forEach((destination) => {
+    //     if (destination.id === trip.destinationID) {
+    //       console.log('I AM IN HERE!')
+    //       acc.push(destination)
+    //     }
+    //   })
+    //   return acc;
+    // }, [])
+    let allDestinations = [];
+    allTrips.forEach(trip => {
+      destinations.forEach(destination => {
+        if (destination.id === trip.destinationID) {
+          allDestinations.push(destination);
         }
-      })
-      return acc;
-    }, [])
+      });
+    });
+    // console.log('All Dest', allDestinations);
     return allDestinations;
   }
 
@@ -54,38 +68,44 @@ class Trip {
     let futureTrips = allTrips.filter(trip => trip.date.split('/').join('') >= currentYear);
     return futureTrips;
   }
-  
+
   getLodgingCost(id, date, destinations) {
-   let yearlyTrips = this.getThisYearsTrips(id, date);
-   let allDestinations = this.getDestinations(id, destinations);
+    let yearlyTrips = this.getThisYearsTrips(id, date);
+    let allDestinations = this.getDestinations(id, destinations);
     let yearlyDestinations = yearlyTrips.reduce((acc, trip) => {
-      let getInfo = allDestinations.find(destination =>  destination.id === trip.id)
+      let getInfo = allDestinations.find(destination => destination.id === trip.destinationID)
       let getDollars = getInfo.estimatedLodgingCostPerDay * trip.duration;
       acc += getDollars;
       return acc;
     }, 0)
     return yearlyDestinations;
   }
-  
+
   getFlightCost(id, date, destinations) {
     let yearlyTrips = this.getThisYearsTrips(id, date);
     let allDestinations = this.getDestinations(id, destinations);
-     let yearlyDestinations = yearlyTrips.reduce((acc, trip) => {
-       let getInfo = allDestinations.find(destination =>  destination.id === trip.id)
-       let getDollars = getInfo.estimatedFlightCostPerPerson * trip.travelers;
-       acc += getDollars;
-       return acc;
-     }, 0)
-     return yearlyDestinations;
-   }
+    let yearlyDestinations = yearlyTrips.reduce((acc, trip) => {
+      console.log('acc', acc);
+      console.log('trip', trip);
+      let getInfo = allDestinations.find(destination => destination.id === trip.destinationID);
+      let getDollars = getInfo.estimatedFlightCostPerPerson * trip.travelers;
+      acc += getDollars;
+      return acc;
+    }, 0);
+    return yearlyDestinations;
+  }
 
-   getTotalCost(id, date, destinations) {
+  getTotalCost(id, date, destinations) {
     let flights = this.getFlightCost(id, date, destinations) * 1.1;
     let lodging = this.getLodgingCost(id, date, destinations) * 1.1;
     let total = flights + lodging;
     return total;
-   }
-  
+  }
+
+  //  getTripsPicture(destination) {
+  //  }
+
+
 }
-        
-        export default Trip;
+
+export default Trip;

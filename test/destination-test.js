@@ -20,7 +20,7 @@ describe('Destination', () => {
   })
 
   it('should get a destination by id', () => {
-    expect(destination1.getDestinationId(1)).to.deep.equal(
+    expect(destination1.getDestinationId('Lima, Peru')).to.deep.equal(
       {
         id: 1,
         destination: 'Lima, Peru',
