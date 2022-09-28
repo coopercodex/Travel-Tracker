@@ -98,7 +98,7 @@ class Trip {
   getTotalCost(id, date, destinations) {
     let flights = this.getFlightCost(id, date, destinations) * 1.1;
     let lodging = this.getLodgingCost(id, date, destinations) * 1.1;
-    let total = flights + lodging;
+    let total = flights + lodging; 
     return total;
   }
 
