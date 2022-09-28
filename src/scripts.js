@@ -62,6 +62,7 @@ function initiateData() {
     destination = new Destination(destinationData);
     trip = new Trip(tripData);
     currentDate = new Date().toJSON().slice(0, 10).split('-').join('/');
+    initializeUser()
     renderTravelInfo(traveler, trip);
     renderTravelersTrips(traveler, trip);
   }).catch(error => `Error: ${error}`);
@@ -74,12 +75,12 @@ function submitButtons(event) {
       newTripCost();
   }
 }
-const toggleMainPage = () => {
-  loginButton.classList.toggle('hidden');
-  loginSection.classList.toggle('hidden');
-  entirePage.classList.toggle('hidden');
-  widgetsContainer.classList.toggle('hidden');
-}
+// const toggleMainPage = () => {
+//   loginButton.classList.toggle('hidden');
+//   loginSection.classList.toggle('hidden');
+//   entirePage.classList.toggle('hidden');
+//   widgetsContainer.classList.toggle('hidden');
+// }
 
 function userLogin(event) {
   event.preventDefault();
@@ -95,7 +96,7 @@ function initializeUser() {
   fetchSingleTravelerData(travelerId).then((data) => {
     traveler = new Traveler(data)
     initiateData()
-    toggleMainPage()
+    // toggleMainPage()
   })
 }
 
