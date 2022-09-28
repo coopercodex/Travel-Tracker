@@ -1,7 +1,6 @@
 class Destination {
   constructor(destinationInfo) {
   this.destination = destinationInfo;
-  // console.log(this.destination)
   }
 
   getDestinationId(location) {

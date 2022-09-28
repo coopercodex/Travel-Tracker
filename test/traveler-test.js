@@ -27,8 +27,4 @@ it('should have the travelers type', () => {
 })
 
 
-it.skip('should caculate cost of trips of most recent year', () => {
-  expect(traveler1.getCostOfTripsOfYear(1, destinationsData)).to.equal()
-})
-
 })

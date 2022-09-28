@@ -61,20 +61,20 @@ describe('Trip', () => {
     expect(trip1.getDestinations(1, destinationsData)).to.deep.equal(
       [
         {
-          id: 1,
-          destination: 'Lima, Peru',
-          estimatedLodgingCostPerDay: 70,
-          estimatedFlightCostPerPerson: 400,
-          image: 'https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80',
-          alt: 'overview of city buildings with a clear sky'
+          id: 49,
+          destination: 'Castries, St Lucia',
+          estimatedLodgingCostPerDay: 650,
+          estimatedFlightCostPerPerson: 90,
+          image: 'https://images.unsplash.com/photo-1524478075552-c2763ea171b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1502&q=80',
+          alt: 'aerial photography of rocky mountain under cloudy sky'
         },
         {
-          id: 2,
-          destination: 'Stockholm, Sweden',
-          estimatedLodgingCostPerDay: 100,
-          estimatedFlightCostPerPerson: 780,
-          image: 'https://images.unsplash.com/photo-1560089168-6516081f5bf1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
-          alt: 'city with boats on the water during the day time'
+          id: 25,
+          destination: 'New York, New York',
+          estimatedLodgingCostPerDay: 175,
+          estimatedFlightCostPerPerson: 200,
+          image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+          alt: 'people crossing the street during the day surrounded by tall buildings and advertisements'
         }
       ]
     )
@@ -109,15 +109,15 @@ describe('Trip', () => {
 
 
   it('should get yearly cost of lodging', () => {
-    expect(trip1.getLodgingCost(1, '2022/09/26', destinationsData)).to.equal(2360)
+    expect(trip1.getLodgingCost(1, '2022/09/26', destinationsData)).to.equal(8350)
   })
 
   it('should get yearly cost of flights', () => {
-    expect(trip1.getFlightCost(1, '2022/09/26', destinationsData)).to.equal(4300 )
+    expect(trip1.getFlightCost(1, '2022/09/26', destinationsData)).to.equal(1090)
   })
 
   it('should get total cost of trips for year', () => {
-    expect(trip1.getTotalCost(1, '2022/09/26', destinationsData)).to.equal(7326)
+    expect(trip1.getTotalCost(1, '2022/09/26', destinationsData)).to.equal(10384)
   })
 
 
@@ -167,22 +167,20 @@ describe('Trip', () => {
 
   it('should return a travelers pending trips', () => {
     expect(trip1.getPendingTrips(1, '2022/09/26')).to.deep.equal(
-    [
-      {
-        id: 3,
-        userID: 1,
-        destinationID: 22,
-        travelers: 4,
-        date: '2021/05/22',
-        duration: 17,
-        status: 'pending',
-        suggestedActivities: []
-      }
-    ]
+      [
+        {
+          id: 3,
+          userID: 1,
+          destinationID: 22,
+          travelers: 4,
+          date: '2021/05/22',
+          duration: 17,
+          status: 'pending',
+          suggestedActivities: []
+        }
+      ]
     )
   })
-  // it('should return a picture for choosen trip', () => {
-  //   expect(trip1.getTripsPicture(destinationsData)).to.deep.equal( 'https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80');
-  // })
 
+  
 })

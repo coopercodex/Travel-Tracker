@@ -17,19 +17,6 @@ class Trip {
 
   getDestinations(id, destinations) {
     let allTrips = this.getTravelersTripsById(id);
-    // console.log('All Trips: ', allTrips);
-    // console.log('All Destinations: ', destinations);
-    // let allDestinations = allTrips.reduce((acc, trip) => {
-    //   console.log('Trip: ', trip);
-    //   console.log('acc: ', acc);
-    //   destinations.forEach((destination) => {
-    //     if (destination.id === trip.destinationID) {
-    //       console.log('I AM IN HERE!')
-    //       acc.push(destination)
-    //     }
-    //   })
-    //   return acc;
-    // }, [])
     let allDestinations = [];
     allTrips.forEach(trip => {
       destinations.forEach(destination => {
@@ -99,10 +86,6 @@ class Trip {
     let total = flights + lodging; 
     return total;
   }
-
-  //  getTripsPicture(destination) {
-  //  }
-
 
 }
 

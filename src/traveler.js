@@ -19,8 +19,6 @@ class Traveler {
   }
 
 
-
-  // methods that update trips, 3 args- past, upcoming, pending from trip class
 }
 
 
