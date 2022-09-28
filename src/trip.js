@@ -38,7 +38,7 @@ class Trip {
         }
       });
     });
-    // console.log('All Dest', allDestinations);
+    
     return allDestinations;
   }
 
@@ -85,8 +85,6 @@ class Trip {
     let yearlyTrips = this.getThisYearsTrips(id, date);
     let allDestinations = this.getDestinations(id, destinations);
     let yearlyDestinations = yearlyTrips.reduce((acc, trip) => {
-      console.log('acc', acc);
-      console.log('trip', trip);
       let getInfo = allDestinations.find(destination => destination.id === trip.destinationID);
       let getDollars = getInfo.estimatedFlightCostPerPerson * trip.travelers;
       acc += getDollars;

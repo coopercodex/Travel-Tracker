@@ -61,20 +61,15 @@ function initiateData() {
   ]).then((data) => {
     console.log('D0', data[0], 'D1', data[1], 'D2', data[2])
     travelerData = data[0];
-    // console.log('TDATA', travelerData)
     destinationData = data[1];
-    // console.log('DDDATA', destinationData)
     tripData = data[2];
-    // console.log(tripData)
     // traveler = new Traveler(travelerData);
     destination = new Destination(destinationData);
     trip = new Trip(tripData);
     currentDate = new Date().toJSON().slice(0, 10).split('-').join('/');
     renderTravelInfo(traveler, trip);
     renderTravelersTrips(traveler, trip);
-  }).catch(error => {
-    console.log(`Error: ${error}`)
-  });
+  }).catch(error => `Error: ${error}`);
 }
 
 function submitButtons(event) {
@@ -103,9 +98,7 @@ function userLogin(event) {
 
 function initializeUser() {
   fetchSingleTravelerData(travelerId).then((data) => {
-    console.log('dataa', data)
     traveler = new Traveler(data)
-    console.log('theTraveler', traveler)
     initiateData()
     toggleMainPage()
   })
@@ -139,6 +132,8 @@ const sendTripApplication = () => {
   postTripApplication(tripInfo);
   resetInputs();
   // initiateData();
+  console.log(traveler)
+  console.log(trip)
   renderTravelersTrips(traveler, trip);
 }
 //update traveler trips to call traveler method ^
@@ -189,51 +184,59 @@ function renderTravelInfo(traveler, trip) {
 }
 
 function renderTravelersTrips(traveler, trip) {
-  fetch('http://localhost:3001/api/v1/trips')
-    .then(data => {
-      let logpastTrips = trip.getPastTrips(traveler.id, currentDate);
-      pastTrips.innerHTML = '';
-      if (logpastTrips.length > 0) {
-        logpastTrips.forEach((trip) => {
-          pastTrips.innerHTML += `<p> Past Trips<br>Trip Date: ${trip.date}<br>
-   Travelers: ${trip.travelers} <br>
-   Duration: ${trip.duration} <br>
-   Status: ${trip.status} <br></p>`
-        })
-      } else {
-        pastTrips.innerHTML += `<h4> You have no past trips.`
-      }
+  console.log('TRIP IN RENDER', trip);
+  Promise.all([fetchAllData('trips')]).then((data) => {
+    console.log('BEFORE TRIP INFO', trip.tripInformation);
+    tripData = data[0];
+    trip.tripInformation = tripData; // update trip info
+    console.log('AFTER TRIP INFO', trip.tripInformation);
+    console.log('TRIP: ', trip);
+
+    let logPastTrips = trip.getPastTrips(traveler.id, currentDate);
+    pastTrips.innerHTML = '';
+    if (logPastTrips.length > 0) {
+      logPastTrips.forEach((pastTrip) => {
+        pastTrips.innerHTML += `<p> Past Trips<br>Trip Date: ${pastTrip.date}<br>
+   Travelers: ${pastTrip.travelers} <br>
+   Duration: ${pastTrip.duration} <br>
+   Status: ${pastTrip.status} <br></p>`
+      })
+    } else {
+      pastTrips.innerHTML += `<h4> You have no past trips.`
+    }
+    console.log('past', logPastTrips);
 
 
-      let logPresentTrips = trip.getPendingTrips(traveler.id, currentDate);
-      presentTrips.innerHTML = '';
-      if (logPresentTrips.length > 0) {
-        logPresentTrips.forEach((trip) => {
-          presentTrips.innerHTML += `<p>Pending Trips<br>Trip Date: ${trip.date}<br>
-   Travelers: ${trip.travelers} <br>
-   Duration: ${trip.duration} <br>
-   Status: ${trip.status} <br></p>`
-        })
-      } else {
-        presentTrips.innerHTML += `<h4> You have no trips at this time.`;
-      }
+    let logPresentTrips = trip.getPendingTrips(traveler.id, currentDate);
+    presentTrips.innerHTML = '';
+    if (logPresentTrips.length > 0) {
+      logPresentTrips.forEach((presentTrip) => {
+        presentTrips.innerHTML += `<p>Pending Trips<br>Trip Date: ${presentTrip.date}<br>
+   Travelers: ${presentTrip.travelers} <br>
+   Duration: ${presentTrip.duration} <br>
+   Status: ${presentTrip.status} <br></p>`
+      })
+    } else {
+      presentTrips.innerHTML += `<h4> You have no trips at this time.`;
+    }
+    console.log('pres', logPresentTrips);
 
-      let logFutureTrips = trip.getFutureTrips(traveler.id, currentDate);
-      futureTrips.innerHTML = '';
-      // console.log(logFutureTrips.length)
-      // console.log('Future Trips', logFutureTrips)
-      if (logFutureTrips.length > 0) {
-        logFutureTrips.forEach((trip) => {
-          futureTrips.innerHTML += `<p>Upcoming Trips<br>Trip Date: ${trip.date}<br>
-   Travelers: ${trip.travelers} <br>
-   Duration: ${trip.duration} <br>
-   Status: ${trip.status} <br></p>`
-        })
-      } else {
-        futureTrips.innerHTML += `<h4> You have no upcoming trips.`;
-      }
-    })
+    let logFutureTrips = trip.getFutureTrips(traveler.id, currentDate);
+    futureTrips.innerHTML = '';
+    if (logFutureTrips.length > 0) {
+      logFutureTrips.forEach((futureTrip) => {
+        futureTrips.innerHTML += `<p>Upcoming Trips<br>Trip Date: ${futureTrip.date}<br>
+   Travelers: ${futureTrip.travelers} <br>
+   Duration: ${futureTrip.duration} <br>
+   Status: ${futureTrip.status} <br></p>`
+      })
+    } else {
+      futureTrips.innerHTML += `<h4> You have no upcoming trips.`;
+    }
+  }).catch(error => `Error: ${error}`);
 }
 
-bookingButton.addEventListener('click', sendTripApplication)
-
+bookingButton.addEventListener('click', () => {
+  sendTripApplication();
+  initiateData();
+})
